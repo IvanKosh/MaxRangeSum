@@ -5,7 +5,7 @@
  * Created on 23 Сентябрь 2015 г., 20:56
  */
 
-//#include <iostream>
+#include <iostream>
 //#include <fstream>
 //#include <stdio.h>
 
@@ -20,59 +20,48 @@ int main(int argc, char *argv[]) {
 	
 	fp = fopen(argv[1], "r");
     char buffer[128];
-	short n;
-    short i;
+	short n, temp;
+    short i, j, scanresult;
     freopen(argv[1], "r", stdin);
 	
 	for (i = 0; i < 100; i++) {
 		mas[i] = 0;
 	}
 	
-	scanf("%i;%i", &n, &mas[0]);
+	// Получить n
+	// Если ;MAS 
+	// (пока) продолжать получать числа и записывать в массив
+	// вывести получившийся массив(кроме последнего числа) с n
+	// (потом)произвести расчеты
+	// (потом)Найти самое большое число и вывести
+	// присвоить n последнее число массива
+	// перейти на "Если ;MAS
+	
+	scanf ("%i;", &n);
 	i = 0;
-L1:
-    while(scanf("%i",&mas[i])==1 && buffer[i] != EOF)
-        ++i;
-	
-	if(scanf(";%i", &mas[0])==1) {
-		i++;
-		goto L1;
+L:
+	scanresult = scanf("%i", &mas[i]);
+	while(scanresult == 1) {
+		if (scanresult == 0) {
+		}
+		++i;
+		scanresult = scanf("%i", &mas[i]);
 	}
-	
-    //print values parsed to int array.    
-    for(int j=0; j<i; ++j)
-        printf("[%i]: %i\n",j,mas[j]);
 
+	cout << n << ';';
+	for(int j = 0; j < i-1; ++j)
+		printf("%i ", mas[j]);
 	
-	
-	
-    fclose(stdin);
-	
-	
-//	FILE *pFile;
-//	pFile = fopen (argv[1], "r");
-//	
-//	int i, n;
-//	
-//	fscanf (pFile, "%i;%i", &n, &mas[0]);
-	
-	//cout << n << ' ' << i;
-	
-	/*ifstream stream(argv[1]);
-	string line;
-	short i, n;
-	fscanf(stream, "%d;%d", n, mas[0]);
-	
-	for (i = 0; i < 100; i++) {
-		mas[i] = 0;
+	n = mas[i-1];
+	if(scanf(";%i", &mas[0]) == 1) {
+		i = 1;
+		cout << endl;
+		goto L;
 	}
-	while (fscanf(stream, "%d", mas[i])) {
-		i++;
+	else {
+		cout << n;
+		cout << endl;
 	}
-	
-	for (i = 0; i < 100; i++) {
-		cout << mas[i];
-	}*/
 	return 0;
 }
 
